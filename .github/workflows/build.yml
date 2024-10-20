@@ -1,22 +1,23 @@
-name: Build
+name: C Build and Archive
+
 on: [push, pull_request]
 
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v2
-      - name: Compile code
-        run: make
-        # Specify if Makefile is not in the root, e.g., working-directory: src
+    - name: Checkout Repository
+      uses: actions/checkout@v2
 
-      - name: Cleanup
-        run: find . -type f ! -name '*.out' -delete
-        # Adjust this command based on your build outputs
+    - name: Compile code
+      run: |
+        cd .
+        make
 
-      - uses: actions/upload-artifact@v3
-        with:
-          name: compiled-app
-          path: build/
-        # Adjust the path to point to your specific build output directory or files
+    - name: Upload Build Artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: compiled-app
+        path: .
 
