@@ -16,7 +16,7 @@ jobs:
         make
 
     - name: Upload Build Artifact
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: compiled-app
         path: .
